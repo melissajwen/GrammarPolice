@@ -1,5 +1,5 @@
 <html>
-    <head>
+<!--     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -167,7 +167,7 @@
 
 <!-- Input bar and slide -->
 
-<div class="header">
+<!-- <div class="header">
   <span id="title">Test</span>
 </div>
 
@@ -178,7 +178,7 @@
       <input id="button" href="#input" class="btn btn-success" type="submit" value="Submit" onclick="get();">
     </form>
   </div>
-</div>
+</div> --> 
 
  <body>
     <?php
@@ -190,11 +190,10 @@
 
         echo '<div id="imagewrapper">';
       
-          foreach($array['errors']as $_array) {
-            $offset_id = $_array['offset'];
-            $length_id = $_array['length'];
-            $better_id = $_array['better'][0];
-          }
+        foreach($array['errors']as $_array) {
+          $offset_id = $_array['offset'];
+          $better_id = $_array['better'][0]; 
+        }
      
       // insert string replace algorithm
       }
@@ -207,11 +206,11 @@
   setInterval(function() {
     comments = document.getElementsByClassName("comment-renderer-text-content");
 
-    var correct = <?php echo $scores_id ?>;
+    var correct = <php echo $scores_id ?>;
 
     for(var i = 0; i < comments.length; i++) { // loop through number of comments on page
       if(correct != 100) { // if flagged as incorrect grammar
-        var comment_length = <?php echo $errors_id ?>;
+        var comment_length = <php echo $errors_id ?>;
         for(var j = 0; j < comment_length; j++) { // loop through the length of the comment
          
         }
