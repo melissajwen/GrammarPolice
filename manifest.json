@@ -1,10 +1,10 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 1,
  
   "name": "Grammar Police",
 
   "version": "0.1.0",
-  "description": "A Chrome extension.",
+  "description": "A Chrome extension that automatically corrects grammar on Youtube comments.",
 
   "browser_action": {
 	"default_title": "Grammar Police"
