@@ -9,7 +9,6 @@
       <title>Grammar Police</title>
       <link rel="stylesheet" href="css/bootstrap.css">
 
-<!--       <script src="content.js"></script> -->
       <script>
           $(document).ready(function(){
             $("buttonB").on('click', function(event) {
@@ -178,37 +177,12 @@
       <textarea id="texttitle" class="form-control" rows="1" type="text" name="tag"></textarea>
       <input id="button" href="#inputParagraph" class="btn btn-success" type="submit" value="Submit">
     </form>
-
-  <div id="slide" class="containter">
-  <div id="point"></div>
-
   </div>
-
-<!-- 
-<?php
-
-  if(!empty($_GET['tag'])) {
-    $url = 'https://api.textgears.com/check.php?text=' . urlencode($_GET['tag']) . '&key=nGn5L2nC5xdTe0op';
-    $json = file_get_contents($url);
-    $array = json_decode($json, true);
-
-    echo '<div id="imagewrapper">';
-    foreach($array['errors']as $_array) {
-      $offset_id = $_array['offset'];
-      $length_id = $_array['length'];
-      $better_id = $_array['better'][0];
-
-      <!-- $image_source = 'https://farm' . $farm_id . '.staticflickr.com/' . $server_id . '/' . $id . '_' . $secret . '.jpg';
-      echo '<img class="image" style="float: left; margin-top: 10px;"height="275" src=' . $image_source . '>'; -->
-   <!--  }
-    echo '</div>';
-    echo '<div class="titleStyle">' . $_GET['tag'] . '</div>';
-  }
-  ?> -->
+</div>
 
  <?php
   if(!empty($_GET['tag'])) {
-    <!-- echo $_GET['tag']; -->
+    echo $_GET['tag'];
     $url = 'https://api.textgears.com/check.php?text=' . urlencode($_GET['tag']) . '&key=nGn5L2nC5xdTe0op';
     $json = file_get_contents($url);
     $array = json_decode($json, true);
@@ -218,37 +192,32 @@
       $offset_id = $_array['offset'];
       $length_id = $_array['length'];
       $better_id = $_array['better'][0];
+
+      // insert string replace algorithm
     }
-  ?>
+  }
+?>
 
 <script>
   var comments, 
   correct = true; // assumes comment has no grammatical errors
 
-setInterval(function() {
-  comments = document.getElementsByClassName("comment-renderer-text-content");
-  for(var i = 0; i < comments.length; i++) { // loop through number of comments on page
-    if(correct == false) { // if flagged as incorrect grammar
-      for(var j = 0; j < racism.length; j++) { // loop through the length of the comment
-        if(comments[i].innerHTML.toLowerCase().indexOf(racism[j]) != -1) {
-          comments[i].innerHTML = "This comment was suspended because it was deemed racist.";
-          comments[i].style = "color: #CE0D00; font-weight: bold";
+  setInterval(function() {
+    comments = document.getElementsByClassName("comment-renderer-text-content");
+    for(var i = 0; i < comments.length; i++) { // loop through number of comments on page
+      if(correct == false) { // if flagged as incorrect grammar
+        for(var j = 0; j < racism.length; j++) { // loop through the length of the comment
+          if(comments[i].innerHTML.toLowerCase().indexOf(racism[j]) != -1) {
+            comments[i].innerHTML = "This comment was suspended because it was deemed racist.";
+            comments[i].style = "color: #CE0D00; font-weight: bold";
+          }
         }
       }
     }
   }
-  if(numCensored != 0) {
-    document.title = "CENSORED: " + numCensored;
-  }
 }, 250);
 </script>
 
-  <hr>
-
-  </div>        
-</div>
-
 </body>
-
 
 </html>
