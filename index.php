@@ -1,6 +1,5 @@
 <html>
     <head>
-
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +25,7 @@
           });
       </script>
 
+ 	<script type="text/javascript" src="jquery.js"></script>
       <script src="https://apis.google.com/js/api.js"></script>
 
     </head>
@@ -162,7 +162,7 @@
       }
     </style>
 
-<body class="text-center">
+<!-- <body class="text-center">
 
 
 <!-- Input bar and slide -->
@@ -175,48 +175,52 @@
   <div>
     <form id="inputform" action="">
       <textarea id="texttitle" class="form-control" rows="1" type="text" name="tag"></textarea>
-      <input id="button" href="#inputParagraph" class="btn btn-success" type="submit" value="Submit">
+      <input id="button" href="#input" class="btn btn-success" type="submit" value="Submit" onclick="get();">
     </form>
   </div>
 </div>
 
- <?php
-  if(!empty($_GET['tag'])) {
-    echo $_GET['tag'];
-    $url = 'https://api.textgears.com/check.php?text=' . urlencode($_GET['tag']) . '&key=nGn5L2nC5xdTe0op';
-    $json = file_get_contents($url);
-    $array = json_decode($json, true);
+ <body>
+    <?php
+      if(!empty($_GET['tag'])) {
+        echo $_GET['tag'];
+        $url = 'https://api.textgears.com/check.php?text=' . urlencode($_GET['tag']) . '&key=nGn5L2nC5xdTe0op';
+        $json = file_get_contents($url);
+        $array = json_decode($json, true);
 
-    echo '<div id="imagewrapper">';
-    foreach($array['errors']as $_array) {
-      $offset_id = $_array['offset'];
-      $length_id = $_array['length'];
-      $better_id = $_array['better'][0];
-
+        echo '<div id="imagewrapper">';
+      
+          foreach($array['errors']as $_array) {
+            $offset_id = $_array['offset'];
+            $length_id = $_array['length'];
+            $better_id = $_array['better'][0];
+          }
+     
       // insert string replace algorithm
-    }
-  }
-?>
+      }
+    ?>
 
+<!-- 
 <script>
-  var comments, 
-  correct = true; // assumes comment has no grammatical errors
+  var comments;
 
   setInterval(function() {
     comments = document.getElementsByClassName("comment-renderer-text-content");
+
+    var correct = <?php echo $scores_id ?>;
+
     for(var i = 0; i < comments.length; i++) { // loop through number of comments on page
-      if(correct == false) { // if flagged as incorrect grammar
-        for(var j = 0; j < racism.length; j++) { // loop through the length of the comment
-          if(comments[i].innerHTML.toLowerCase().indexOf(racism[j]) != -1) {
-            comments[i].innerHTML = "This comment was suspended because it was deemed racist.";
-            comments[i].style = "color: #CE0D00; font-weight: bold";
-          }
+      if(correct != 100) { // if flagged as incorrect grammar
+        var comment_length = <?php echo $errors_id ?>;
+        for(var j = 0; j < comment_length; j++) { // loop through the length of the comment
+         
         }
       }
     }
   }
+
 }, 250);
-</script>
+</script> -->
 
 </body>
 

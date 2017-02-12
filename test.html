@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<body>
+<script type="text/javascript">
+var comments;
+setInterval(function() {
+  comments = document.getElementsByClassName("comment-renderer-text-content");
+  var correct = true; // assume all comments are grammatically correct
+
+  for(var i = 0; i < comments.length; i++) { // loop through number of comments on page
+    if(correct == false) { // if flagged as incorrect grammar
+      var comment_length = <?php echo $errors_id ?>;
+        for(var j = 0; j < comment_length; j++) { // loop through the length of the comment
+          alert("Hello"); 
+        }
+      }
+    }
+  }
+
+}, 250);
+</script>
+</body>
+</html>
