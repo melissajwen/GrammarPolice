@@ -1,169 +1,6 @@
 <html>
-<!--     <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="icon" href="favicon.png"/>
-
-      <title>Grammar Police</title>
-      <link rel="stylesheet" href="css/bootstrap.css">
-
-      <script>
-          $(document).ready(function(){
-            $("buttonB").on('click', function(event) {
-              if (this.hash !== "") {
-                event.preventDefault();
-                var hash = this.hash;
-
-                $('html, body').animate({
-                  scrollTop: $(hash).offset().top
-                }, 700, function(){
-                  window.location.hash = hash;
-                });
-              }
-            });
-          });
-      </script>
-
- 	<script type="text/javascript" src="jquery.js"></script>
-      <script src="https://apis.google.com/js/api.js"></script>
-
-    </head>
-
-    <style>
-      body {
-        font-family: futuracustom;
-        background-color: #dddddd;
-        margin: 20px;
-        cursor: default;
-      }
-      @font-face {
-        font-family: futuracustom;
-        src: url('fonts/futuracustom.ttf');
-      }
-      @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-      }
-      footer {
-        position: absolute;
-        bottom: 10px;
-      }
-
-      #inputArea {
-        margin: 20px;
-      }
-
-      .form-control {
-        text-align: center;
-        font-size: 14px;
-      }
-
-      #slide {
-        background-color: white;
-        height: 660px;
-        padding: 20px 20px;
-        margin-top: 65px;
-        margin-bottom: 20px;
-      }
-      #point {
-        position: absolute;
-        top:835px;
-        right: 10%;
-        text-align: left;
-        width: 38%;
-        font-size: 19px;
-      }
-      #picture {
-        background-color: blue;
-        position: absolute;
-        top: 33%;
-        left: 10%;
-      }
-      .btn {
-        width: 100%;
-        margin-top: 5px;
-      }
-      #heading {
-        outline: none;
-        border: white;
-        font-size: 32px;
-        text-align: center;
-      }
-
-      #imagewrapper {
-        float: left;
-        width: 50%;
-        padding: 80px 75px;
-
-
-      }
-      .image {
-        padding: 5px;
-        object-fit: cover;
-        width: 200px;
-        height: 200px;
-        float: left;
-        
-      }
-      #texttitle {
-        font-size: 24px;
-      }
-      #textparagraph {
-        padding: 40px 100px;
-        text-align: left;
-        font-size: 20px;
-      }
-      .header {
-        margin: 0 30px;
-        padding-bottom: 40px;
-      }
-      #us {
-        text-align: inline-block;
-        float: left;
-        font-size: 30px;
-      }
-      a {
-        text-align: inline-block;
-        float: right;
-        margin-left: 10px;
-        padding: 4 30px;
-        font-size: 18px;
-        text-decoration: none;
-        color: black;
-        transition: .2s;
-      }
-
-      a:hover {
-        text-decoration: none;
-        color: white;
-        background-color: black;
-      }
-
-      .titleStyle {
-        font-size: 50px;
-        margin: 30px 30px -10px 30px;
-      }
-      hr {
-        width: 500px;
-        color: blue;
-      }
-      #logo {
-        position: absolute;
-        top: 20px;
-        left: 60px;
-        height: 42px;
-      }
-      #title {
-        position: absolute;
-        top: 25px;
-        font-size: 24px;
-        left: 155px;
-      }
-    </style>
-
-<!-- <body class="text-center">
-
+<head>
+</head>
 
 <!-- Input bar and slide -->
 
@@ -181,23 +18,66 @@
 </div> --> 
 
  <body>
-    <?php
-      if(!empty($_GET['tag'])) {
-        echo $_GET['tag'];
-        $url = 'https://api.textgears.com/check.php?text=' . urlencode($_GET['tag']) . '&key=nGn5L2nC5xdTe0op';
-        $json = file_get_contents($url);
-        $array = json_decode($json, true);
+ <?php
+    function changes($str, $fixes, $locations){
+      $newString = "";
+      $current = explode(" ", $str);
 
-        echo '<div id="imagewrapper">';
-      
-        foreach($array['errors']as $_array) {
-          $offset_id = $_array['offset'];
-          $better_id = $_array['better'][0]; 
-        }
-     
-      // insert string replace algorithm
+      $addition = 0;
+      $currentLocation = 0;
+      $positions = [];
+
+
+      for($i = 0; $i < count($current); $i+=1){
+        $positions[] = $currentLocation;
+        $currentLocation += (1 + strlen($current[$i]));
       }
-    ?>
+      
+      $k = 0;
+      
+      for($j = 0; $j < count($positions); $j+=1){
+        if($positions[$j] == $locations[$k]){
+          $current[$j] = $fixes[$k];
+          $k+=1;
+        }
+        if($k == count($locations)) {
+          break;
+        }
+      }
+      for($m = 0; $m < count($current); $m+=1){
+        $newString .= $current[$m];
+        if($m < sizeOf($current) - 1){
+          $newString .= " ";
+        }
+      }
+      return $newString;  
+    }
+    
+    $a = $_GET['tag'];
+    echo $a;
+
+    // if(!empty($_GET['tag'])) {
+    //   $orig = $_GET['tag'];
+    //   $url = 'https://api.textgears.com/check.php?text=' . urlencode($_GET['tag']) . '&key=nGn5L2nC5xdTe0op';
+    //   $json = file_get_contents($url);
+    //   $array = json_decode($json, true);
+
+    //   echo '<div id="imagewrapper">';
+
+    //   $numErrors = $array['errors'] + 1;
+      
+    //   for($i = 0; $i < $numErrors; $i++) {
+    //     foreach($array['errors']as $_array) {
+    //       $better_id[i] = $_array['better'][0]; 
+    //       $offset_id[i] = $_array['offset'];  
+    //     }
+    //   }
+      
+    //   changes($orig, $better_id, $offset_id);
+      // insert string replace algorithm
+    }
+
+?>
 
 <!-- 
 <script>

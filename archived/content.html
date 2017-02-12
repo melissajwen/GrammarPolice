@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+ <script type="text/javascript" src="./javascript.js"></script>
+    <script
+        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJnj2nWoM86eU8Bq2G4lSNz3udIkZT4YY&sensor=false">
+    </script>
+</head>
+<body>
+<script>
+var script = document.createElement('script');
+script.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+var comments, 
+	counter = 0,
+	correct = true; // assumes comment has no grammatical errors
+
+function requestJSON(string) { //figure out how to connect to index.php
+  $.ajax({
+    type: "GET",
+    url: 'index.php',
+    data: {tag: string},
+    success: function(data) {
+       $("#answer").html(data);    
+    }
+  });
+  return false;
+}
+
+setInterval(function() {
+	comments = document.getElementsByClassName("comment-renderer-text-content");
+	
+	for(var i = 0; i < comments.length; i++) {
+		if (counter == 10) break;
+		counter += 1;
+		// if(correct == true) {
+		var _string = comments[i].innerHTML;
+		requestJSON(_string); // returns a string
+
+		}
+}, 250);
+
+</script>
+
+<div id="answer"></div>
+</body>
+</html>

@@ -7,12 +7,11 @@
   "description": "A Chrome extension.",
 
   "browser_action": {
-	"default_title": "Grammar Police",
-  "default_popup": "popup.html"
+	"default_title": "Grammar Police"
 	},
  
   "content_scripts": [{
-    "js": ["content.js"],
+    "js": ["jquery.js","content.js"],
     "matches": ["https://*/*", "http://*/*"]
   }
   ]
